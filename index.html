@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GS Bryggeri</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+
+        function isInt(value) {
+            return !isNaN(value);
+        }
+
+        function doCalculate() {
+            var og = parseInt(document.getElementById('og').value);
+            var fg = parseInt(document.getElementById('fg').value);
+
+            if (!isNaN(og) && !isNaN(fg)) {
+                var result = Math.round((og - fg) * 0.131 * 100) / 100;
+                if (result < 100 && result > 0) {
+                    document.getElementById('result').innerHTML = result.toString().replace('.', ',') + ' %';
+                }
+            }
+        }
+
+        function init() {
+            document.getElementById('btn').addEventListener('click', function () {
+                var og = parseInt(document.getElementById('og').value);
+                var fg = parseInt(document.getElementById('fg').value);
+
+                if (isNaN(og) || isNaN(fg)) {
+                    alert('Please use whole numbers for OG and FG, ex. 1050');
+                } else {
+                    doCalculate();
+                }
+            });
+            document.getElementById('og').addEventListener('keyup', function () {
+                doCalculate();
+            });
+            document.getElementById('fg').addEventListener('keyup', function () {
+                doCalculate();
+            });
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/GS%20Bryggeri/sw1.js').then(function (registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function (err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            init();
+        })
+    </script>
+</head>
+<body>
+<div id="container">
+    <h1>GS Bryggeri</h1>
+
+    <div id="result"></div>
+    <div id="form">
+        <label for="og">Original Gravity</label>
+        <input type="tel" id="og">
+        <label for="fg">Final Gravity</label>
+        <input type="tel" id="fg">
+        <button id="btn"><i class="fa fa-beer fa-fw"></i></button>
+    </div>
+</div>
+</body>
+</html>
