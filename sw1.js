@@ -1,22 +1,21 @@
 importScripts('serviceworker-cache-polyfill.js');
 
-var CACHE_NAME = 'cache-app-v3';
+var CACHE_NAME = 'cache-app-v4';
 var urlsToCache = [
-    '/GS%20Bryggeri/index.html',
-    '/GS%20Bryggeri/main.css',
-    '/GS%20Bryggeri/main.css',
-    '/GS%20Bryggeri/font-awesome/css/font-awesome.min.css',
-    '/GS%20Bryggeri/font-awesome/fonts/fontawesome-webfont.eot?v=4.4.0',
-    '/GS%20Bryggeri/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.4.0',
-    '/GS%20Bryggeri/font-awesome/fonts/fontawesome-webfont.woff2?v=4.4.0',
-    '/GS%20Bryggeri/font-awesome/fonts/fontawesome-webfont.woff?v=4.4.0',
-    '/GS%20Bryggeri/font-awesome/fonts/fontawesome-webfont.ttf?v=4.4.0',
-    '/GS%20Bryggeri/font-awesome/fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular'
+    '/gsb/index.html',
+    '/gsb/main.css',
+    '/gsb/main.css',
+    '/gsb/font-awesome/css/font-awesome.min.css',
+    '/gsb/font-awesome/fonts/fontawesome-webfont.eot?v=4.4.0',
+    '/gsb/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.4.0',
+    '/gsb/font-awesome/fonts/fontawesome-webfont.woff2?v=4.4.0',
+    '/gsb/font-awesome/fonts/fontawesome-webfont.woff?v=4.4.0',
+    '/gsb/font-awesome/fonts/fontawesome-webfont.ttf?v=4.4.0',
+    '/gsb/font-awesome/fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular'
 
 ];
 
 self.addEventListener('install', function (event) {
-    console.log('Installed')
     // Perform install steps
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -28,7 +27,6 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-    console.log('fetched');
     event.respondWith(
         caches.match(event.request)
             .then(function (response) {
@@ -44,8 +42,7 @@ self.addEventListener('fetch', function (event) {
 });
 
 self.addEventListener('activate', function (event) {
-    console.log('Activated');
-    var cacheWhitelist = ['cache-app-v3'];
+    var cacheWhitelist = ['cache-app-v4'];
 
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
